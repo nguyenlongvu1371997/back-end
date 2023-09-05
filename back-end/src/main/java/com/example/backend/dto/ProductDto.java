@@ -4,10 +4,18 @@ import com.example.backend.model.TypeProduct;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+
 public class ProductDto implements Validator {
     private Integer id;
+
+    @NotBlank(message = "can't be empty")
+    @Size(max = 100, message = "too long")
     private String name;
     private String dateInput;
+    @Size(min = 0, message = "too short")
     private int amount;
     private TypeProduct typeProduct;
 
@@ -15,6 +23,7 @@ public class ProductDto implements Validator {
     }
 
     public ProductDto(String name, String dateInput, int amount, TypeProduct typeProduct) {
+
         this.name = name;
         this.dateInput = dateInput;
         this.amount = amount;

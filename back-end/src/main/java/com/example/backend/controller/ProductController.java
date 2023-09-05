@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +44,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editProduct( @RequestBody ProductDto productDto, BindingResult bindingResult, @PathVariable("id") Integer id) {
+    public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError err : bindingResult.getFieldErrors()) {
@@ -57,7 +59,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto, BindingResult bindingResult) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError err : bindingResult.getFieldErrors()) {
